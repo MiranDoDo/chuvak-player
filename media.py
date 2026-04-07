@@ -1,7 +1,9 @@
 # Импорты
 from tkinter import *
 from tkinter import filedialog
+from tkinter import messagebox
 from tkinter import ttk
+import tkinter as tk
 import pygame
 
 # Обязательная инциализация
@@ -17,8 +19,9 @@ window.maxsize(570, 600)
 window.minsize(570, 600)
 
 # Переменные
-chuvak = PhotoImage(file = "chuvak.png")
+chuvak = PhotoImage(file = "./assets/backgrounds/chuvak.png")
 music = ""
+
 
 class MediaPlay:
 
@@ -33,11 +36,13 @@ class MediaPlay:
         if music != "":
          pygame.mixer.music.load(music)
          pygame.mixer.music.play()
-         print(f"Сейчас играет {music}")
+         print(f"Play {music}")
+        elif music == "":
+            messagebox.showerror("Error", "Error! You need to select file fisrt.")
 
     def get_music(self):
         global music
-        media = filedialog.askopenfilename(filetypes=[("MP3 Files",('*.mp3')), ("FLAC Files",('*.flac'))])
+        media = filedialog.askopenfilename(filetypes=[("MP3 Files",('*.mp3')), ("FLAC Files",('*.flac')), ("WAV Files",('*.wav'))])
         music = media
         print(music)
 
@@ -53,22 +58,23 @@ class MediaPlay:
 
 musicplay = MediaPlay(music)
 
-# Картинка с Чуваком
+# Задний фон
 labelchuvak = Label(window, image = chuvak)
 labelchuvak.place(x = 0, y = 0)
 
 
+
 # Кнопки
 
-open_button = ttk.Button(text="Открыть файл", command=musicplay.get_music)
-open_button.pack(side=BOTTOM)
-play_button = ttk.Button(text="Воспроизвести музыку", command=musicplay.play_music)
-play_button.pack(side=BOTTOM)
-stop_button = ttk.Button(text="Остановить музыку", command=musicplay.stop_music)
-stop_button.pack(side=BOTTOM)
-pause_button = ttk.Button(text="Поставить на паузу музыку", command=musicplay.pause_music)
-pause_button.pack(side=BOTTOM)
-unpause_button = ttk.Button(text="Убрать с паузы музыку", command=musicplay.unpause_music)
-unpause_button.pack(side=BOTTOM)
+open_button = ttk.Button(window, text="Open file", command=musicplay.get_music)
+open_button.place(x=232, y=564)
+play_button = ttk.Button(window, text="Start music", command=musicplay.play_music)
+play_button.place(x=5, y=564)
+stop_button = ttk.Button(window, text="Stop music", command=musicplay.stop_music)
+stop_button.place(x=88, y=564)
+pause_button = ttk.Button(window, text="Pause music", command=musicplay.pause_music)
+pause_button.place(x=367, y=564)
+unpause_button = ttk.Button(window, text="Unpause music", command=musicplay.unpause_music)
+unpause_button.place(x=457, y=564)
 
 window.mainloop()
