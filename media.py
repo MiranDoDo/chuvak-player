@@ -63,7 +63,6 @@ labelchuvak = Label(window, image = chuvak)
 labelchuvak.place(x = 0, y = 0)
 
 
-
 # Кнопки
 
 open_button = ttk.Button(window, text="Open file", command=musicplay.get_music)
