@@ -58,8 +58,8 @@ class MediaPlay:
         if type(music) == tuple:
             pass
         elif music != "":
-            music_path = music
-            print(music_path)
+             music_path = music
+             print(music_path)
 
     def stop_music(self):
         pygame.mixer.music.stop()
