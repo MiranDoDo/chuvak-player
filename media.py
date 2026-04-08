@@ -60,8 +60,11 @@ class MediaPlay:
         elif music != "":
              music_path = music
              print(music_path)
-
-    def stop_music(self):
+             # Нахождение имени музыки
+             music_name1 = music_path.rfind("/")
+             music_name2 = music_path[music_name1+1:len(music_path)]
+             label_name.config(text = music_name2)
+                 
         pygame.mixer.music.stop()
 
     def pause_music(self):
@@ -84,9 +87,21 @@ label_background.place(x = 0, y = -45)
 label_buttons = Label(window,
 bg='#0b9b92',
 width=150,
-height=3
+height=3,
+text=""
 )
 label_buttons.place(x=0, y=553)
+
+# Label для названия музыки
+
+label_name = Label(window,
+bg='#0b9b92',
+fg='#ffffff',
+width=40,
+height=3,
+font=('Helvetica', 11)
+)
+label_name.place(x=120, y=510)
 
 # Кнопки
 
