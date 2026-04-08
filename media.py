@@ -64,7 +64,8 @@ class MediaPlay:
              music_name1 = music_path.rfind("/")
              music_name2 = music_path[music_name1+1:len(music_path)]
              label_name.config(text = music_name2)
-                 
+             
+    def stop_music(self):           
         pygame.mixer.music.stop()
 
     def pause_music(self):
