@@ -16,15 +16,15 @@ window.title("Chuvak Player")
 window.geometry("570x600")
 window.maxsize(570, 600)
 window.minsize(570, 600)
+background_chuvak = PhotoImage(file = "./assets/backgrounds/chuvak.png")
+window.iconphoto(False, background_chuvak)
 window.style = ttk.Style(window)
 window.style.configure('TButton', font=('Helvetica', 11), background='#d1ea8f')
 
 # Переменные
 
-background_chuvak = PhotoImage(file = "./assets/backgrounds/chuvak.png")
 music_path = ""
 IS_PLAY = False
-music_duration = int()
 
 
 class MediaPlay:
@@ -39,7 +39,6 @@ class MediaPlay:
     def play_music(self):
         global music_path
         global IS_PLAY
-        global music_duration
         if music_path == "":
             messagebox.showerror("Error", "Error! You need to select file fisrt.")
         elif music_path != "":
@@ -51,7 +50,6 @@ class MediaPlay:
 
     def select_music(self):
         global music_path
-        global IS_PLAY
         music = filedialog.askopenfilename(filetypes=[
             ("MP3 Files",('*.mp3')),
             ("FLAC Files",('*.flac')),
@@ -156,7 +154,7 @@ label_name.pack(side=BOTTOM)
 play_button = ttk.Button(
 window,
 text="Play",
-command=musicplay.play_music,
+command=musicplay.play_music
 )
 play_button.place(x=5, y=513)
 
