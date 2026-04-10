@@ -1,7 +1,6 @@
 # Импорты
 from tkinter import *
 from tkinter import filedialog, messagebox, ttk
-import tkinter as tk
 import pygame
 import time
 
@@ -25,6 +24,7 @@ window.style.configure('TButton', font=('Helvetica', 11), background='#d1ea8f')
 background_chuvak = PhotoImage(file = "./assets/backgrounds/chuvak.png")
 music_path = ""
 IS_PLAY = False
+music_duration = int()
 
 
 class MediaPlay:
@@ -39,22 +39,25 @@ class MediaPlay:
     def play_music(self):
         global music_path
         global IS_PLAY
+        global music_duration
         if music_path == "":
             messagebox.showerror("Error", "Error! You need to select file fisrt.")
         elif music_path != "":
          pygame.mixer.music.load(music_path)
          IS_PLAY = True
-         time.sleep(0.1) # Маленькая задержка
+         time.sleep(0.1)
          pygame.mixer.music.play(-1)
-         print(f"Play {music_path}")
+
 
     def select_music(self):
         global music_path
+        global IS_PLAY
         music = filedialog.askopenfilename(filetypes=[
             ("MP3 Files",('*.mp3')),
             ("FLAC Files",('*.flac')),
             ("WAV Files",('*.wav'))]
         )
+
         # Проверка типа и пути файла
         if type(music) == tuple:
             pass
@@ -67,13 +70,16 @@ class MediaPlay:
              music_name3 = music_path[music_name1+1:music_name2]
              label_name.config(font=('Helvetica', 11), text = music_name3)
 
-    def stop_music(self):           
+
+    def stop_music(self):
+        global IS_PLAY           
         pygame.mixer.music.stop()
+        IS_PLAY = False
 
     def pause_music(self):
         global IS_PLAY
         if IS_PLAY == True: # Проверка: Играет ли музыка
-            pygame.mixer.music.pause() # Если нет, то ставит на паузу
+            pygame.mixer.music.pause() # Если да, то ставит на паузу
             IS_PLAY = False
         elif IS_PLAY == False: # Иначе:
             pygame.mixer.music.unpause() # Убирает с паузы
@@ -83,6 +89,12 @@ musicplay = MediaPlay()
 
 
 ## UI
+
+# Задний фон
+
+label_background = Label(window, image = background_chuvak)
+label_background.place(x = 0, y = -45)
+
 
 # Меню
 
@@ -115,11 +127,6 @@ font=('Helvetica', 11)
 )
 
 
-# Задний фон
-
-label_background = Label(window, image = background_chuvak)
-label_background.place(x = 0, y = -45)
-
 # Label для кнопок
 
 label_buttons = Label(window,
@@ -143,12 +150,13 @@ text="In the Silence.."
 )
 label_name.pack(side=BOTTOM)
 
+
 # Кнопки
 
 play_button = ttk.Button(
 window,
 text="Play",
-command=musicplay.play_music
+command=musicplay.play_music,
 )
 play_button.place(x=5, y=513)
 
