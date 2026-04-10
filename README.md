@@ -13,6 +13,15 @@ A simple Python3 Audio Player.
 
 - Have cool background
 
+# How to use
+
+**1. Install the archive**
+
+**2. Run in the terminal:**
+```bash
+python3 chuvak-player.py
+```
+
 # Dependencies
 
 **1. Tkinter**
